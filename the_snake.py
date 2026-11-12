@@ -33,7 +33,7 @@ SPEED = 20
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
 # Заголовок окна игрового поля:
-pygame.display.set_caption("Змейка")
+pygame.display.set_caption('Змейка')
 
 # Настройка времени:
 clock = pygame.time.Clock()
@@ -77,11 +77,10 @@ class Apple(GameObject):
         """
         cols = SCREEN_WIDTH // GRID_SIZE
         rows = SCREEN_HEIGHT // GRID_SIZE
-        position = (
+        return (
             randint(0, cols - 1) * GRID_SIZE,
             randint(0, rows - 1) * GRID_SIZE,
         )
-        return position
 
     def __init__(self):
         super().__init__(self.randomize_position(), APPLE_COLOR)
@@ -232,5 +231,5 @@ def main():
         pygame.display.update()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
