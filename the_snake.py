@@ -51,7 +51,7 @@ screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
 # Заголовок окна игрового поля:
 pg.display.set_caption(
-    "Змейка. +/- для изменения скорости игры. ESC для выхода"
+    'Змейка. +/- для изменения скорости игры. ESC для выхода'
 )
 
 # Настройка времени:
@@ -98,8 +98,10 @@ class Apple(GameObject):
     перемещается в случайную свободную позицию.
     """
 
-    def __init__(self, occupied_cells=[]):
+    def __init__(self, occupied_cells=None):
         super().__init__()
+        if occupied_cells is None:
+            occupied_cells = []
         self.body_color = APPLE_COLOR
         self.randomize_position(occupied_cells)
 
@@ -123,10 +125,9 @@ class Apple(GameObject):
 
 
 class Snake(GameObject):
-    """Змейка — управляемый игроком персонаж.
-    Состоит из списка сегментов (positions), где первый элемент -
-    голова. Двигается в текущем направлении (direction), пока
-    игрок не задаст новое направление через next_direction.
+    """
+    Змейка — управляемый игроком персонаж.
+    Состоит из списка сегментов, где первый элемент - голова.
     """
 
     def __init__(self):
@@ -192,10 +193,6 @@ def handle_keys(game_object):
     Клавиши «+» и «-» меняют скорость змейки в пределах
     MIN_SPEED..MAX_SPEED. Клавиша ESC и закрытие окна завершают игру.
 
-    Args:
-        game_object: змейка, для которой проверяется текущее
-            направление и обновляется скорость.
-
     Returns:
         Актуальное направление движения после обработки ввода.
     """
@@ -260,5 +257,5 @@ def main():
         pg.display.update()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
