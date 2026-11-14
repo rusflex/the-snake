@@ -51,7 +51,7 @@ screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
 # Заголовок окна игрового поля:
 pg.display.set_caption(
-    "Змейка. +/- для изменения скорости игры. ESC для выхода"
+    'Змейка. +/- для изменения скорости игры. ESC для выхода'
 )
 
 # Настройка времени:
@@ -90,7 +90,7 @@ class GameObject:
         в дочерних классах.
         """
         raise NotImplementedError(
-            f"{type(self).__name__}.draw() не реализован в дочернем классе"
+            f'{type(self).__name__}.draw() не реализован в дочернем классе'
         )
 
 
@@ -240,7 +240,7 @@ def main():
             snake.length += 1
             apple.randomize_position(snake.positions)
         # Столкновение с собой
-        elif snake.get_head_position() in snake.positions[4:]:
+        elif snake.get_head_position() in snake.positions[3:]:
             snake.reset()
             screen.fill(BOARD_BACKGROUND_COLOR)
             apple.randomize_position(snake.positions)
@@ -251,5 +251,5 @@ def main():
         pg.display.update()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
