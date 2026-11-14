@@ -90,7 +90,7 @@ class GameObject:
         в дочерних классах.
         """
         raise NotImplementedError(
-            f'{type(self).__name__}.draw() не реализован в дочернем классе'
+            f"{type(self).__name__}.draw() не реализован в дочернем классе"
         )
 
 
@@ -146,6 +146,10 @@ class Snake(GameObject):
         self.direction = choice([UP, DOWN, LEFT, RIGHT])
         self.next_direction = None
         self.last = None
+
+    def update_direction(self, new_direction):
+        """Метод обновления направления после нажатия на кнопку."""
+        self.direction = new_direction
 
     def get_head_position(self) -> tuple[int, int]:
         """Возращаем позицию головы."""
