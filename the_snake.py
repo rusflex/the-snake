@@ -51,7 +51,7 @@ screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
 # Заголовок окна игрового поля:
 pg.display.set_caption(
-    'Змейка. +/- для изменения скорости игры. ESC для выхода'
+    "Змейка. +/- для изменения скорости игры. ESC для выхода"
 )
 
 # Настройка времени:
@@ -65,9 +65,9 @@ class GameObject:
     По умолчанию объект располагается в центре экрана.
     """
 
-    def __init__(self):
+    def __init__(self, body_color=None):
         self.position = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        self.body_color = None
+        self.body_color = body_color
 
     def draw_cell(self, position, color, border_color=BORDER_COLOR):
         """Рисует одну клетку сетки с опциональным контуром.
@@ -89,7 +89,9 @@ class GameObject:
         Базовый класс ничего не рисует — метод переопределяется
         в дочерних классах.
         """
-        raise NotImplementedError
+        raise NotImplementedError(
+            f"{type(self).__name__}.draw() не реализован в дочернем классе"
+        )
 
 
 class Apple(GameObject):
@@ -99,11 +101,8 @@ class Apple(GameObject):
     """
 
     def __init__(self, occupied_cells=None):
-        super().__init__()
-        if occupied_cells is None:
-            occupied_cells = []
-        self.body_color = APPLE_COLOR
-        self.randomize_position(occupied_cells)
+        super().__init__(APPLE_COLOR)
+        self.randomize_position(occupied_cells or [])
 
     def randomize_position(self, occupied_cells):
         """
@@ -111,12 +110,11 @@ class Apple(GameObject):
         и выбираем случайным образом
         """
         while True:
-            position = (
+            self.position = (
                 randint(0, SCREEN_WIDTH // GRID_SIZE - 1) * GRID_SIZE,
                 randint(0, SCREEN_HEIGHT // GRID_SIZE - 1) * GRID_SIZE,
             )
-            if position not in occupied_cells:
-                self.position = position
+            if self.position not in occupied_cells:
                 break
 
     def draw(self):
@@ -171,10 +169,6 @@ class Snake(GameObject):
             self.last = self.positions.pop()
         else:
             self.last = None
-
-    def update_direction(self, new_direction):
-        """Метод обновления направления после нажатия на кнопку."""
-        self.direction = new_direction
 
     # Метод draw класса Snake
     def draw(self):
@@ -246,7 +240,7 @@ def main():
             snake.length += 1
             apple.randomize_position(snake.positions)
         # Столкновение с собой
-        elif snake.get_head_position() in snake.positions[1:]:
+        elif snake.get_head_position() in snake.positions[4:]:
             snake.reset()
             screen.fill(BOARD_BACKGROUND_COLOR)
             apple.randomize_position(snake.positions)
@@ -257,5 +251,5 @@ def main():
         pg.display.update()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
