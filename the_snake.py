@@ -90,7 +90,7 @@ class GameObject:
         в дочерних классах.
         """
         raise NotImplementedError(
-            f"{type(self).__name__}.draw() не реализован в дочернем классе"
+            f'{type(self).__name__}.draw() не реализован в дочернем классе'
         )
 
 
